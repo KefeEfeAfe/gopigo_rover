@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<robot name="gopigo3_rover" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find gopigo3_rover_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find gopigo3_rover_description)/urdf/gopigo3_rover.trans" />
+<xacro:include filename="$(find gopigo3_rover_description)/urdf/gopigo3_rover.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.006391085122647295 0.0002604442159316909 0.01761468625819067" rpy="0 0 0"/>
+    <mass value="0.22460545809495566"/>
+    <inertia ixx="0.000359" iyy="0.000776" izz="0.000747" ixy="1e-06" iyz="-2e-06" ixz="6.7e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://gopigo3_rover_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://gopigo3_rover_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lidar_1">
+  <inertial>
+    <origin xyz="2.4267084123771876e-07 -4.718033291354194e-07 0.010999999999999996" rpy="0 0 0"/>
+    <mass value="0.0966126190206165"/>
+    <inertia ixx="2.5e-05" iyy="2.5e-05" izz="4.2e-05" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.021003 -5e-06 -0.079" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://gopigo3_rover_description/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.021003 -5e-06 -0.079" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://gopigo3_rover_description/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wheel_right_1">
+  <inertial>
+    <origin xyz="-3.745601227164719e-07 0.011000396822756907 0.0" rpy="0 0 0"/>
+    <mass value="0.0417961099465138"/>
+    <inertia ixx="8e-06" iyy="1.4e-05" izz="8e-06" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.032715 -0.038857 0.01" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://gopigo3_rover_description/meshes/wheel_right_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.032715 -0.038857 0.01" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://gopigo3_rover_description/meshes/wheel_right_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="wheel_left_1">
+  <inertial>
+    <origin xyz="-3.745601226887163e-07 -0.011000396822756893 8.673617379884035e-18" rpy="0 0 0"/>
+    <mass value="0.041796109946513775"/>
+    <inertia ixx="8e-06" iyy="1.4e-05" izz="8e-06" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.032715 0.038857 0.01" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://gopigo3_rover_description/meshes/wheel_left_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.032715 0.038857 0.01" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://gopigo3_rover_description/meshes/wheel_left_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Rigid_1" type="fixed">
+  <origin xyz="-0.021003 5e-06 0.079" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="lidar_1"/>
+</joint>
+
+<joint name="Revolute_4" type="continuous">
+  <origin xyz="-0.032715 0.038857 -0.01" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="wheel_right_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+</joint>
+
+<joint name="Revolute_5" type="continuous">
+  <origin xyz="-0.032715 -0.038857 -0.01" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="wheel_left_1"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+</joint>
+
+</robot>
